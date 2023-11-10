@@ -52,6 +52,3 @@ def checkout(skus):
             basket_value += value * pricing_table[key]["one"]
 
     return basket_value
-
-
-
