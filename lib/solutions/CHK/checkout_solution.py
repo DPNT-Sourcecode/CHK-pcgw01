@@ -103,7 +103,7 @@ def single_discount(value, item, pricing_table, discount_1, discount_1_s):
     return amount
 
 
-def double_discount(value, item, pricing_table, discount_1, discount_1_s, discount_2, discount_2_s):
+def double_discount(value, item, pricing_table, discount_2, discount_2_s, discount_1, discount_1_s):
     amount = 0
     amount += value // discount_1 * pricing_table[item][discount_1_s]
     leftover_1 = value % discount_1
@@ -172,12 +172,56 @@ def checkout(skus):
 
     for item, value in current_basket.items():
         match item:
+            case "A":
+                basket_value += double_discount(value, item, pricing_table, 5, "five", 3, "three")
+            case "B":
+                if value < 0:
+                    value = 0
+                basket_value += single_discount(value, item, pricing_table, 2, "two")
+            case "E":
+                # Remove extra deals and calculate as regular
+                discounted_amount = value // 2
+                current_basket["B"] = current_basket["B"] - discounted_amount
+                basket_value += value * pricing_table[item]["one"]
+            case "F":
+                # Remove extra deals and calculate as regular
+                if value > 2:
+                    items_to_pay = internal_removal(value, 2)
+                    basket_value += items_to_pay * pricing_table[item]["one"]
+                else:
+                    basket_value += value * pricing_table[item]["one"]
+            case "H":
+                basket_value += double_discount(value, item, pricing_table, 10, "ten", 5, "five")
+            case "K":
+                basket_value += single_discount(value, item, pricing_table, 2, "two")
+            case "P":
+                basket_value += single_discount(value, item, pricing_table, 5, "five")
+            case "Q":
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
             case "V":
                 basket_value += double_discount(value, item, pricing_table, 2, "two", 3, "three")
+            case "U":
+                # Remove extra deals and calculate as regular
+                if value > 3:
+                    items_to_pay = internal_removal(value, 3)
+                    basket_value += items_to_pay * pricing_table[item]["one"]
+                else:
+                    basket_value += value * pricing_table[item]["one"]
+            case "N":
+                # Remove extra deals and calculate as regular
+                discounted_amount = value // 3
+                current_basket["M"] = current_basket["M"] - discounted_amount
+                basket_value += value * pricing_table[item]["one"]
+            case "R":
+                # Remove extra deals and calculate as regular
+                discounted_amount = value // 3
+                current_basket["Q"] = current_basket["Q"] - discounted_amount
+                basket_value += value * pricing_table[item]["one"]
             case _:
                 if value < 0:
                     value = 0
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
