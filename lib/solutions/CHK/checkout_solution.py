@@ -21,6 +21,9 @@ def get_pricing_table():
         },
         "E": {
             "one": 40
+        },
+        "F": {
+            "one": 10
         }
     }
 
@@ -70,3 +73,4 @@ def checkout(skus):
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
