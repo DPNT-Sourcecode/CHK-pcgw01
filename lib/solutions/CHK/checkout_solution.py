@@ -19,12 +19,15 @@ def checkout(skus):
             1: 15
         }
     }
-    
+
+    for 
+
     current_basket = {
-        "A": 0,
-        "B": 0,
-        "C": 0,
-        "D": 0,
+        "A": skus.count("A"),
+        "B": skus.count("B"),
+        "C": skus.count("C"),
+        "D": skus.count("D"),
     }
+
 
 
