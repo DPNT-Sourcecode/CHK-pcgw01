@@ -109,14 +109,6 @@ def single_discount(value, item, pricing_table, discount_1, discount_1_s):
     return amount
 
 
-def single_discount_without_extra(value, item, pricing_table, discount_1, discount_1_s):
-    amount = 0
-    amount += (value // discount_1) * pricing_table[item][discount_1_s]
-    if amount < 0:
-        return 0
-    return amount
-
-
 def double_discount(value, item, pricing_table, discount_2, discount_2_s, discount_1, discount_1_s):
     amount = 0
     amount += value // discount_1 * pricing_table[item][discount_1_s]
@@ -234,19 +226,19 @@ def checkout(skus):
                 current_basket["Q"] = current_basket["Q"] - discounted_amount
                 basket_value += value * pricing_table[item]["one"]
             case "S":
-                basket_value += single_discount_without_extra(value, item, pricing_table, 3, "special")
+                basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["S"] = value % 3
             case "T":
-                basket_value += single_discount_without_extra(value, item, pricing_table, 3, "special")
+                basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["T"] = value % 3
             case "X":
-                basket_value += single_discount_without_extra(value, item, pricing_table, 3, "special")
+                basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["X"] = value % 3
             case "Y":
-                basket_value += single_discount_without_extra(value, item, pricing_table, 3, "special")
+                basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["Y"] = value % 3
             case "Z":
-                basket_value += single_discount_without_extra(value, item, pricing_table, 3, "special")
+                basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["Z"] = value % 3
             case _:
                 if value < 0:
@@ -254,6 +246,7 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
 
