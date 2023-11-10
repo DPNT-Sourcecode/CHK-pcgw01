@@ -229,7 +229,3 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
-
-
-
-
