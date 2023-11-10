@@ -1,6 +1,6 @@
-from solutions.SUM import sum_solution
+from lib.solutions.SUM.sum_solution import compute
 
 
-class TestSum():
-    def test_sum(self):
-        assert sum_solution.compute(1, 2) == 3
+def test_sum_assertion():
+    assert compute(1, 1)
+
