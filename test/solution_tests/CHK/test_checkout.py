@@ -23,8 +23,3 @@ def test_failed_secondary_valid_checkout_3():
 
 def test_invalid_checkout():
     assert checkout("TESTINGCHECKOUT") == -1
-
-
-
-
-
