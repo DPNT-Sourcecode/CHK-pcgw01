@@ -30,8 +30,9 @@ def test_third_valid_checkout_1():
 
 
 def test_third_valid_checkout_2():
-    assert checkout("AAAAABBCDEFFF") == 350
+    assert checkout("AAAAABBCDEFFFFF") == 350
 
 
 def test_invalid_checkout():
     assert checkout("TESTINGCHECKOUT") == -1
+

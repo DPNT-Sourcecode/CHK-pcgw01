@@ -77,6 +77,7 @@ def checkout(skus):
                 if value > 2:
                     while True:
                         if value <= 1:
+                            items_to_pay += 1
                             break
                         items_to_pay += 2
                         value -= 2
@@ -89,4 +90,5 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
