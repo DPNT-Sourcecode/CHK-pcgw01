@@ -140,6 +140,8 @@ def checkout(skus):
         return -1
 
     current_basket = {
+        "N": skus.count("N"),
+        "R": skus.count("R"),
         "A": skus.count("A"),
         "E": skus.count("E"),
         "B": skus.count("B"),
@@ -153,11 +155,9 @@ def checkout(skus):
         "K": skus.count("K"),
         "L": skus.count("L"),
         "M": skus.count("M"),
-        "N": skus.count("N"),
         "O": skus.count("O"),
         "P": skus.count("P"),
         "Q": skus.count("Q"),
-        "R": skus.count("R"),
         "S": skus.count("S"),
         "T": skus.count("T"),
         "U": skus.count("U"),
@@ -223,5 +223,6 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
