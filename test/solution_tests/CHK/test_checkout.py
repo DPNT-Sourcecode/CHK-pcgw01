@@ -18,10 +18,11 @@ def test_failed_secondary_valid_checkout_2():
 
 
 def test_failed_secondary_valid_checkout_3():
-    assert checkout("EEEB") == 110
+    assert checkout("EEEEBB") == 160
 
 
 def test_invalid_checkout():
     assert checkout("TESTINGCHECKOUT") == -1
+
 
 
