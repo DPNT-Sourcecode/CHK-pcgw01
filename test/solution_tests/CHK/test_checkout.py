@@ -36,6 +36,9 @@ def test_third_valid_checkout_2():
 def test_fourth_valid_checkout_2():
     assert checkout("VVV") == 130
 
+def test_fourth_valid_checkout_3():
+    assert checkout("RRR") == 150
+
 
 def test_invalid_checkout():
     assert checkout("TESTINGCHECKOUT") == -1
