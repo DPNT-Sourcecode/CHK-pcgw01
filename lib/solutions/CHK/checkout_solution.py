@@ -100,6 +100,8 @@ def single_discount(value, item, pricing_table, discount_1, discount_1_s):
     amount = 0
     amount += (value // discount_1) * pricing_table[item][discount_1_s]
     amount += (value % discount_1) * pricing_table[item]["one"]
+    if amount < 0:
+        return 0
     return amount
 
 
@@ -110,6 +112,8 @@ def double_discount(value, item, pricing_table, discount_2, discount_2_s, discou
     amount += (leftover_1 // discount_2) * pricing_table[item][discount_2_s]
     leftover_2 = leftover_1 % discount_2
     amount += leftover_2 * pricing_table[item]["one"]
+    if amount < 0:
+        return 0
     return amount
 
 
@@ -125,6 +129,8 @@ def internal_removal(value, amount):
         value -= amount
         if value != 0:
             value -= 1
+    if items_to_pay < 0:
+        return 0
     return items_to_pay
 
 
@@ -223,6 +229,7 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
 
