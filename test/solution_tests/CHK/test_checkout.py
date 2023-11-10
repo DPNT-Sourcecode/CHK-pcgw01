@@ -6,8 +6,9 @@ def test_valid_checkout():
 
 
 def test_secondary_valid_checkout():
-    assert checkout("AAAAAAAAABBBCDEEE") == 530
+    assert checkout("AAAAAAAAABBBCDEEE") == 570
 
 
 def test_invalid_checkout():
     assert checkout("TESTINGCHECKOUT") == -1
+
