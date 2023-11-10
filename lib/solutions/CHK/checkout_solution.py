@@ -61,10 +61,15 @@ def checkout(skus):
             basket_value += (value % 2) * pricing_table[item]["one"]
         elif item == "E":
             # Remove extra deals and calculate as regular
-            price_removal = value - (value // 2)
+            discounted_amount = value // 2
+            basket_value += discounted_amount * 2 * pricing_table[item]["one"]
+            price_removal = (value % 2) - discounted_amount
+            if price_removal < 0:
+                price_removal = 0
             basket_value += price_removal * pricing_table[item]["one"]
         else:
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
