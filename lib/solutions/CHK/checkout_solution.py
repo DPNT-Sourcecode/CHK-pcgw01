@@ -6,7 +6,8 @@ def get_pricing_table():
     return {
         "A": {
             "one": 50,
-            "triple": 130
+            "triple": 130,
+            "penta": 200
         },
         "B": {
             "one": 30,
@@ -17,6 +18,10 @@ def get_pricing_table():
         },
         "D": {
             "one": 15
+        }
+        "E": {
+            "one": 40,
+            "double": 80
         }
     }
 
@@ -52,5 +57,6 @@ def checkout(skus):
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
