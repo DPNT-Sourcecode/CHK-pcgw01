@@ -67,10 +67,12 @@ def get_pricing_table():
             "one": 50,
         },
         "S": {
-            "one": 30,
+            "one": 20,
+            "special": 45
         },
         "T": {
             "one": 20,
+            "special": 45
         },
         "U": {
             "one": 40,
@@ -85,13 +87,16 @@ def get_pricing_table():
             "one": 20,
         },
         "X": {
-            "one": 90,
+            "one": 17,
+            "special": 45
         },
         "Y": {
-            "one": 10,
+            "one": 20,
+            "special": 45
         },
         "Z": {
-            "one": 50,
+            "one": 21,
+            "special": 45
         },
     }
 
@@ -223,9 +228,20 @@ def checkout(skus):
                 discounted_amount = value // 3
                 current_basket["Q"] = current_basket["Q"] - discounted_amount
                 basket_value += value * pricing_table[item]["one"]
+            case "S":
+                pass
+            case "T":
+                pass
+            case "Z":
+                pass
+            case "X":
+                pass
+            case "Y":
+                pass
             case _:
                 if value < 0:
                     value = 0
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
