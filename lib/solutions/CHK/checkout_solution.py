@@ -6,12 +6,12 @@ def get_pricing_table():
     return {
         "A": {
             "one": 50,
-            "triple": 130,
-            "quintuple": 200
+            "three": 130,
+            "five": 200
         },
         "B": {
             "one": 30,
-            "double": 45
+            "two": 45
         },
         "C": {
             "one": 20
@@ -29,35 +29,104 @@ def get_pricing_table():
             "one": 20
         },
         "H": {
+            "one": 10,
             "five": 45,
             "ten": 80,
         },
         "I": {
             "one": 35,
         },
+        "J": {
+            "one": 60,
+        },
+        "K": {
+            "one": 80,
+            "two": 150
+        },
+        "L": {
+            "one": 90,
+        },
+        "M": {
+            "one": 15,
+        },
+        "N": {
+            "one": 40,
+        },
+        "O": {
+            "one": 10,
+        },
+        "P": {
+            "one": 50,
+            "five": 200,
+        },
+        "Q": {
+            "one": 30,
+            "three": 80,
+        },
+        "R": {
+            "one": 50,
+        },
+        "S": {
+            "one": 30,
+        },
+        "T": {
+            "one": 20,
+        },
+        "U": {
+            "one": 40,
+        },
+        "V": {
+            "one": 50,
+            "two": 90,
+            "three": 130,
+
+        },
+        "W": {
+            "one": 20,
+        },
+        "X": {
+            "one": 90,
+        },
+        "Y": {
+            "one": 10,
+        },
+        "Z": {
+            "one": 50,
+        },
     }
 
 
-| G    | 20    |                        |
-| H    | 10    | 5H for 45, 10H for 80  |
-| I    | 35    |                        |
-| J    | 60    |                        |
-| K    | 80    | 2K for 150             |
-| L    | 90    |                        |
-| M    | 15    |                        |
-| N    | 40    | 3N get one M free      |
-| O    | 10    |                        |
-| P    | 50    | 5P for 200             |
-| Q    | 30    | 3Q for 80              |
-| R    | 50    | 3R get one Q free      |
-| S    | 30    |                        |
-| T    | 20    |                        |
-| U    | 40    | 3U get one U free      |
-| V    | 50    | 2V for 90, 3V for 130  |
-| W    | 20    |                        |
-| X    | 90    |                        |
-| Y    | 10    |                        |
-| Z    | 50    |                        |
+def single_discount(value, item, pricing_table, discount_1, discount_1_s):
+    amount = 0
+    amount += (value // discount_1) * pricing_table[item][discount_1_s]
+    amount += (value % discount_1) * pricing_table[item]["one"]
+    return amount
+
+
+def double_discount(value, item, pricing_table, discount_1, discount_1_s, discount_2, discount_2_s):
+    amount = 0
+    amount += value // discount_1 * pricing_table[item][discount_1_s]
+    leftover_1 = value % discount_1
+    amount += (leftover_1 // discount_2) * pricing_table[item][discount_2_s]
+    leftover_2 = leftover_1 % discount_2
+    amount += leftover_2 * pricing_table[item]["one"]
+    return amount
+
+
+def internal_removal(value):
+    items_to_pay = 0
+    while True:
+        if value == 1:
+            items_to_pay += 1
+            break
+        if value == 0:
+            break
+        items_to_pay += 2
+        value -= 2
+        if value != 0:
+            value -= 1
+    return items_to_pay
+
 
 def checkout(skus):
     pricing_table = get_pricing_table()
@@ -77,6 +146,26 @@ def checkout(skus):
         "C": skus.count("C"),
         "D": skus.count("D"),
         "F": skus.count("F"),
+        "G": skus.count("G"),
+        "H": skus.count("H"),
+        "I": skus.count("I"),
+        "J": skus.count("J"),
+        "K": skus.count("K"),
+        "L": skus.count("L"),
+        "M": skus.count("M"),
+        "N": skus.count("N"),
+        "O": skus.count("O"),
+        "P": skus.count("P"),
+        "Q": skus.count("Q"),
+        "R": skus.count("R"),
+        "S": skus.count("S"),
+        "T": skus.count("T"),
+        "U": skus.count("U"),
+        "V": skus.count("V"),
+        "W": skus.count("W"),
+        "X": skus.count("X"),
+        "Y": skus.count("Y"),
+        "Z": skus.count("Z"),
     }
 
     basket_value = 0
@@ -84,19 +173,11 @@ def checkout(skus):
     for item, value in current_basket.items():
         match item:
             case "A":
-                # Calculate best deal for 5
-                basket_value += value // 5 * pricing_table[item]["quintuple"]
-                quintuple_leftover = value % 5
-                # Calculate best deal for 3
-                basket_value += (quintuple_leftover // 3) * pricing_table[item]["triple"]
-                triple_leftover = quintuple_leftover % 3
-                # Calculate leftovers
-                basket_value += triple_leftover * pricing_table[item]["one"]
+                basket_value += double_discount(value, item, pricing_table, 5, "five", 3, "three")
             case "B":
                 if value < 0:
-                    value =  0
-                basket_value += (value // 2) * pricing_table[item]["double"]
-                basket_value += (value % 2) * pricing_table[item]["one"]
+                    value = 0
+                basket_value += single_discount(value, item, pricing_table, 2, "two")
             case "E":
                 # Remove extra deals and calculate as regular
                 discounted_amount = value // 2
@@ -104,22 +185,15 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
             case "F":
                 # Remove extra deals and calculate as regular
-                items_to_pay = 0
                 if value > 2:
-                    while True:
-                        if value == 1:
-                            items_to_pay += 1
-                            break
-                        if value == 0:
-                            break
-                        items_to_pay += 2
-                        value -= 2
-                        if value != 0:
-                            value -= 1
+                    items_to_pay = internal_removal(value)
                     basket_value += items_to_pay * pricing_table[item]["one"]
                 else:
                     basket_value += value * pricing_table[item]["one"]
+            case "H":
+                basket_value += double_discount(value, item, pricing_table, 10, "ten", 5, "five")
             case _:
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
