@@ -229,19 +229,25 @@ def checkout(skus):
                 current_basket["Q"] = current_basket["Q"] - discounted_amount
                 basket_value += value * pricing_table[item]["one"]
             case "S":
-                pass
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
+                # current_basket["S"] = value % 3
             case "T":
-                pass
-            case "Z":
-                pass
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
+                # current_basket["T"] = value % 3
             case "X":
-                pass
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
+                # current_basket["X"] = value % 3
             case "Y":
-                pass
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
+                # current_basket["Y"] = value % 3
+            case "Z":
+                basket_value += single_discount(value, item, pricing_table, 3, "three")
+                # current_basket["Z"] = value % 3
             case _:
                 if value < 0:
                     value = 0
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
