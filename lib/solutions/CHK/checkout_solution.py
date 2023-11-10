@@ -38,6 +38,7 @@ def checkout(skus):
         "C": skus.count("C"),
         "D": skus.count("D"),
     }
+
     basket_value = 0
 
     for item, value in current_basket.items():
@@ -51,4 +52,5 @@ def checkout(skus):
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
