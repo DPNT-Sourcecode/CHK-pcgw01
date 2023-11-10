@@ -74,14 +74,15 @@ def checkout(skus):
             case "F":
                 # Remove extra deals and calculate as regular
                 if value > 2:
-                    double_deals = value // 2
-                    possible_reduction = (value % 2) - double_deals
-                    if double_deals > 1 and possible_reduction == 0:
-                        double_deals
-                    if possible_reduction < 0:
-                        possible_reduction = 0
-                    basket_value += double_deals * 2 * pricing_table[item]["one"]
-                    basket_value += possible_reduction * pricing_table[item]["one"]
+                    items_to_pay = 0
+                    while True:
+                        if value <= 0:
+                            break
+                        items_to_pay += 2
+                        value -= 2
+                        if value > 0:
+                            value - 1
+                    basket_value += items_to_pay * pricing_table[item]["one"]
                 else:
                     basket_value += value * pricing_table[item]["one"]
             case _:

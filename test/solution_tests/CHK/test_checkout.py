@@ -28,6 +28,7 @@ def test_third_valid_checkout_0():
 def test_third_valid_checkout_1():
     assert checkout("AAAAABBCDEFFF") == 340
 
+
 def test_third_valid_checkout_2():
     assert checkout("AAAAABBCDEFFF") == 350
 
