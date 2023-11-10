@@ -58,18 +58,19 @@ def checkout(skus):
             basket_value += triple_leftover * pricing_table[item]["one"]
         elif item == "B":
             if value < 0:
-                value = 0
+                value =  0
             basket_value += (value // 2) * pricing_table[item]["double"]
             basket_value += (value % 2) * pricing_table[item]["one"]
         elif item == "E":
             # Remove extra deals and calculate as regular
             discounted_amount = value // 2
-            current_basket["B"] -= discounted_amount
+            current_basket["B"] = current_basket["B"] - discounted_amount
             basket_value += value * pricing_table[item]["one"]
         else:
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
 
