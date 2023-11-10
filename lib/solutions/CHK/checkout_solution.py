@@ -1,10 +1,9 @@
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 
 
 def get_pricing_table():
-    return  {
+    return {
         "A": {
             "one": 50,
             "triple": 130
@@ -21,11 +20,12 @@ def get_pricing_table():
         }
     }
 
+
 def checkout(skus):
     pricing_table = get_pricing_table()
 
     skus_copy = skus
-    for key, _ in pricing_table:
+    for key, _ in pricing_table.items():
         skus_copy.replace(key, "")
 
     if skus_copy != "":
@@ -40,11 +40,10 @@ def checkout(skus):
     }
     basket_value = 0
 
-    for key, value in current_basket:
+    for key, value in current_basket.items():
         if key == "A":
             basket_value += (value // 3) * pricing_table[key]["triple"]
             basket_value += (value % 3) * pricing_table[key]["one"]
-            # do something
         elif key == "B":
             basket_value += (value // 2) * pricing_table[key]["double"]
             basket_value += (value // 2) * pricing_table[key]["one"]
