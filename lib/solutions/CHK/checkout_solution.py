@@ -41,6 +41,7 @@ def get_pricing_table():
         },
         "K": {
             "one": 70,
+            "two": 120
         },
         "L": {
             "one": 90,
@@ -225,6 +226,8 @@ def checkout(skus):
                 discounted_amount = value // 3
                 current_basket["Q"] = current_basket["Q"] - discounted_amount
                 basket_value += value * pricing_table[item]["one"]
+            case "K":
+                basket_value += single_discount(value, item, pricing_table, 2, "two")
             case "S":
                 basket_value += single_discount(value, item, pricing_table, 3, "special")
                 # current_basket["S"] = value % 3
@@ -246,6 +249,7 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
 
