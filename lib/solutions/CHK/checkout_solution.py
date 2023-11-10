@@ -38,10 +38,10 @@ def checkout(skus):
 
     current_basket = {
         "A": skus.count("A"),
+        "E": skus.count("E"),
         "B": skus.count("B"),
         "C": skus.count("C"),
         "D": skus.count("D"),
-        "E": skus.count("E"),
     }
 
     basket_value = 0
@@ -57,19 +57,19 @@ def checkout(skus):
             # Calculate leftovers
             basket_value += triple_leftover * pricing_table[item]["one"]
         elif item == "B":
+            if value < 0:
+                value = 0
             basket_value += (value // 2) * pricing_table[item]["double"]
             basket_value += (value % 2) * pricing_table[item]["one"]
         elif item == "E":
             # Remove extra deals and calculate as regular
             discounted_amount = value // 2
-            basket_value += discounted_amount * 2 * pricing_table[item]["one"]
-            price_removal = (value % 2) - discounted_amount
-            if price_removal < 0:
-                price_removal = 0
-            basket_value += price_removal * pricing_table[item]["one"]
+            current_basket["B"] -= discounted_amount
+            basket_value += value * pricing_table[item]["one"]
         else:
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
