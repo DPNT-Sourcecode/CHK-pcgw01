@@ -173,7 +173,7 @@ def checkout(skus):
     for item, value in current_basket.items():
         match item:
             case "A":
-                basket_value += double_discount(value, item, pricing_table, 5, "five", 3, "three")
+                basket_value += double_discount(value, item, pricing_table, 3, "three",  5, "five")
             case "B":
                 if value < 0:
                     value = 0
@@ -191,7 +191,7 @@ def checkout(skus):
                 else:
                     basket_value += value * pricing_table[item]["one"]
             case "H":
-                basket_value += double_discount(value, item, pricing_table, 10, "ten", 5, "five")
+                basket_value += double_discount(value, item, pricing_table, 5, "five", 10, "ten")
             case "K":
                 basket_value += single_discount(value, item, pricing_table, 2, "two")
             case "P":
@@ -223,5 +223,6 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
 
 
