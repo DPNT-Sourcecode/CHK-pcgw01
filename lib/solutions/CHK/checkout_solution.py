@@ -46,8 +46,9 @@ def checkout(skus):
             basket_value += (value % 3) * pricing_table[item]["one"]
         elif item == "B":
             basket_value += (value // 2) * pricing_table[item]["double"]
-            basket_value += (value // 2) * pricing_table[item]["one"]
+            basket_value += (value % 2) * pricing_table[item]["one"]
         else:
             basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
