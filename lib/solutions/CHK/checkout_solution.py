@@ -73,15 +73,15 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
             case "F":
                 # Remove extra deals and calculate as regular
+                items_to_pay = 0
                 if value > 2:
-                    items_to_pay = 0
                     while True:
-                        if value <= 0:
+                        if value <= 1:
                             break
                         items_to_pay += 2
                         value -= 2
-                        if value > 0:
-                            value - 1
+                        if value != 0:
+                            value -= 1
                     basket_value += items_to_pay * pricing_table[item]["one"]
                 else:
                     basket_value += value * pricing_table[item]["one"]
@@ -89,3 +89,4 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
+
