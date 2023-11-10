@@ -76,6 +76,8 @@ def checkout(skus):
                 if value > 2:
                     double_deals = value // 2
                     possible_reduction = (value % 2) - double_deals
+                    if double_deals > 1 and possible_reduction == 0:
+                        double_deals
                     if possible_reduction < 0:
                         possible_reduction = 0
                     basket_value += double_deals * 2 * pricing_table[item]["one"]
@@ -86,7 +88,3 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     return basket_value
-
-
-
-
