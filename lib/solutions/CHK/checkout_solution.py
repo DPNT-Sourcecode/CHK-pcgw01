@@ -26,7 +26,7 @@ def checkout(skus):
 
     skus_copy = skus
     for key, _ in pricing_table.items():
-        skus_copy.replace(key, "")
+        skus_copy.replace(key, '')
 
     if skus_copy != "":
         # If there are still elements in the SKUS, there are invalid items
@@ -51,6 +51,7 @@ def checkout(skus):
             basket_value += value * pricing_table[key]["one"]
 
     return basket_value
+
 
 
 
