@@ -1,6 +1,7 @@
+from lib.solutions.HLO.hello_solution import hello
 
 
-# noinspection PyUnusedLocal
-# friend_name = unicode string
-def hello(friend_name):
-    return f"Hello, {friend_name}!"
+def test_hello():
+    friend_name: str = "John"
+    assert hello(friend_name) == "Hello, John!"
+
