@@ -26,7 +26,7 @@ def checkout(skus):
 
     skus_copy = skus
     for key, _ in pricing_table.items():
-        skus_copy.replace(key, '')
+        skus_copy = skus_copy.replace(key, '')
 
     if skus_copy != "":
         # If there are still elements in the SKUS, there are invalid items
@@ -40,18 +40,14 @@ def checkout(skus):
     }
     basket_value = 0
 
-    for key, value in current_basket.items():
-        if key == "A":
-            basket_value += (value // 3) * pricing_table[key]["triple"]
-            basket_value += (value % 3) * pricing_table[key]["one"]
-        elif key == "B":
-            basket_value += (value // 2) * pricing_table[key]["double"]
-            basket_value += (value // 2) * pricing_table[key]["one"]
+    for item, value in current_basket.items():
+        if item == "A":
+            basket_value += (value // 3) * pricing_table[item]["triple"]
+            basket_value += (value % 3) * pricing_table[item]["one"]
+        elif item == "B":
+            basket_value += (value // 2) * pricing_table[item]["double"]
+            basket_value += (value // 2) * pricing_table[item]["one"]
         else:
-            basket_value += value * pricing_table[key]["one"]
+            basket_value += value * pricing_table[item]["one"]
 
     return basket_value
-
-
-
-
