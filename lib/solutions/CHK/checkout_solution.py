@@ -67,12 +67,10 @@ def get_pricing_table():
             "one": 50,
         },
         "S": {
-            "one": 20,
-            "special": 45
+            "one": 20
         },
         "T": {
-            "one": 20,
-            "special": 45
+            "one": 20
         },
         "U": {
             "one": 40,
@@ -87,16 +85,13 @@ def get_pricing_table():
             "one": 20,
         },
         "X": {
-            "one": 17,
-            "special": 45
+            "one": 17
         },
         "Y": {
-            "one": 20,
-            "special": 45
+            "one": 20
         },
         "Z": {
-            "one": 21,
-            "special": 45
+            "one": 21
         },
     }
 
@@ -228,24 +223,16 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
             case "K":
                 basket_value += single_discount(value, item, pricing_table, 2, "two")
-            case "S":
-                basket_value += single_discount(value, item, pricing_table, 3, "special")
-                # current_basket["S"] = value % 3
-            case "T":
-                basket_value += single_discount(value, item, pricing_table, 3, "special")
-                # current_basket["T"] = value % 3
-            case "X":
-                basket_value += single_discount(value, item, pricing_table, 3, "special")
-                # current_basket["X"] = value % 3
-            case "Y":
-                basket_value += single_discount(value, item, pricing_table, 3, "special")
-                # current_basket["Y"] = value % 3
-            case "Z":
-                basket_value += single_discount(value, item, pricing_table, 3, "special")
-                # current_basket["Z"] = value % 3
+            case "Z" | "Y" | "X" | "T" | "S":
+                pass
             case _:
                 if value < 0:
                     value = 0
                 basket_value += value * pricing_table[item]["one"]
 
+    temp_skus = ""
+    for letter in ["Z", "S", "T", "Y", "X"]:
+        temp_skus += letter * current_basket[letter]
+
     return basket_value
+
