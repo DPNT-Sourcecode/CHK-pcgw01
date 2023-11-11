@@ -32,8 +32,17 @@ def test_third_valid_checkout_1():
 def test_third_valid_checkout_2():
     assert checkout("AAAAABBCDEFFFFF") == 360
 
+
 def test_fourth_valid_checkout_3():
     assert checkout("STX") == 45
+
+
+def test_fourth_valid_checkout_4():
+    assert checkout("STXSTX") == 90
+
+
+def test_fourth_valid_checkout_5():
+    assert checkout("SSSZ") == 65
 
 
 def test_invalid_checkout():

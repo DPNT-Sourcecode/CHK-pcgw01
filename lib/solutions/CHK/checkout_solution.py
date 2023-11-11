@@ -234,5 +234,9 @@ def checkout(skus):
     for letter in ["Z", "S", "T", "Y", "X"]:
         temp_skus += letter * current_basket[letter]
 
+    left_pointer = 0
+    while True:
+        right_pointer = left_pointer + 3
+
     return basket_value
 
