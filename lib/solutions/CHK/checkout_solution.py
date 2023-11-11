@@ -245,7 +245,7 @@ def checkout(skus):
 
         right_pointer = left_pointer + 3
 
-        if right_pointer >= temp_skus_size:
+        if right_pointer > temp_skus_size:
             finality_skus = temp_skus[left_pointer:]
             leftover_basket = {
                 "Z": finality_skus.count("Z"),
@@ -265,5 +265,6 @@ def checkout(skus):
             left_pointer += 3
 
     return basket_value
+
 
 
