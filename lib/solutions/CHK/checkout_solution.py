@@ -272,6 +272,3 @@ def checkout(skus):
             left_pointer += 3
 
     return basket_value
-
-
-
