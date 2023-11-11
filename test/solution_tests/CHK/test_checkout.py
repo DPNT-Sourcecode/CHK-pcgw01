@@ -46,4 +46,4 @@ def test_fourth_valid_checkout_5():
 
 
 def test_invalid_checkout():
-    assert checkout("TESTINGCHECKOUT") == -1
+    assert checkout("TESTINGCHECK1OUT") == -1

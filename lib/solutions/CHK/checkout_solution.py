@@ -133,19 +133,8 @@ def internal_removal(value, amount):
         return 0
     return items_to_pay
 
-
-def checkout(skus):
-    pricing_table = get_pricing_table()
-
-    skus_copy = skus
-    for key, _ in pricing_table.items():
-        skus_copy = skus_copy.replace(key, '')
-
-    if skus_copy != "":
-        # If there are still elements in the SKUS, there are invalid items
-        return -1
-
-    current_basket = {
+def collect_current_basket(skus):
+    return {
         "N": skus.count("N"),
         "R": skus.count("R"),
         "A": skus.count("A"),
@@ -174,6 +163,27 @@ def checkout(skus):
         "Z": skus.count("Z"),
     }
 
+
+def get_leftover_basket(current_basket):
+    temp_skus = ""
+    for letter in ["Z", "S", "T", "Y", "X"]:
+        # Order them by price in order to be filtered correctly
+        temp_skus += letter * current_basket[letter]
+    return temp_skus
+
+
+def checkout(skus):
+    pricing_table = get_pricing_table()
+
+    skus_copy = skus
+    for key, _ in pricing_table.items():
+        skus_copy = skus_copy.replace(key, '')
+
+    if skus_copy != "":
+        # If there are still elements in the SKUS, there are invalid items
+        return -1
+
+    current_basket = collect_current_basket(skus)
     basket_value = 0
 
     for item, value in current_basket.items():
@@ -231,10 +241,7 @@ def checkout(skus):
                 basket_value += value * pricing_table[item]["one"]
 
     # Build a temporary SKUS to calculate optimized value
-    temp_skus = ""
-    for letter in ["Z", "S", "T", "Y", "X"]:
-        # Order them by price in order to be filtered correctly
-        temp_skus += letter * current_basket[letter]
+    temp_skus = get_leftover_basket(current_basket)
 
     left_pointer = 0
     temp_skus_size = len(temp_skus)
