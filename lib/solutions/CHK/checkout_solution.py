@@ -230,13 +230,40 @@ def checkout(skus):
                     value = 0
                 basket_value += value * pricing_table[item]["one"]
 
+    # Build a temporary SKUS to calculate optimized value
     temp_skus = ""
     for letter in ["Z", "S", "T", "Y", "X"]:
+        # Order them by price in order to be filtered correctly
         temp_skus += letter * current_basket[letter]
 
     left_pointer = 0
+    temp_skus_size = len(temp_skus)
     while True:
+        if left_pointer == temp_skus_size:
+            # No more SKUS left , break out
+            break
+
         right_pointer = left_pointer + 3
 
+        if right_pointer >= temp_skus_size:
+            finality_skus = temp_skus[left_pointer:]
+            leftover_basket = {
+                "Z": finality_skus.count("Z"),
+                "S": finality_skus.count("S"),
+                "T": finality_skus.count("T"),
+                "Y": finality_skus.count("Y"),
+                "X": finality_skus.count("X")
+            }
+            for item, value in leftover_basket.items():
+                if value < 0:
+                    value = 0
+                basket_value += value * pricing_table[item]["one"]
+            break
+        else:
+            # Add 45 to the overall value and move to the next iteration
+            basket_value += 45
+            left_pointer += 3
+
     return basket_value
+
 
